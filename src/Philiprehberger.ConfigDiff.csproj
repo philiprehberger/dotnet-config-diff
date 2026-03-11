@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Philiprehberger.ConfigDiff</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Philip Rehberger</Authors>
+    <Description>Compare JSON configuration files and output differences</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/philiprehberger/dotnet-config-diff</RepositoryUrl>
+    <PackageTags>config;diff;json;appsettings;comparison</PackageTags>
+  </PropertyGroup>
+
+</Project>
