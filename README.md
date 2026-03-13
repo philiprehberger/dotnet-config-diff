@@ -38,7 +38,7 @@ foreach (var key in diff.Removed)
     Console.WriteLine($"- {key}");
 
 foreach (var change in diff.Changed)
-    Console.WriteLine($"~ {change.Key}: '{change.OldValue}' -> '{change.NewValue}'");
+    Console.WriteLine($"~ {change.Path}: '{change.OldValue}' -> '{change.NewValue}'");
 
 // Output:
 // + NewSetting
@@ -52,14 +52,48 @@ foreach (var change in diff.Changed)
 var diff = ConfigComparer.CompareFiles("appsettings.json", "appsettings.Production.json");
 ```
 
+### Compare streams
+
+```csharp
+using var streamA = File.OpenRead("appsettings.json");
+using var streamB = File.OpenRead("appsettings.Production.json");
+var diff = ConfigComparer.Compare(streamA, streamB);
+```
+
+### Ignore paths
+
+Use `ignorePaths` to exclude specific keys from the comparison. Supports exact matches and wildcard prefix matches with `.*`:
+
+```csharp
+var diff = ConfigComparer.Compare(jsonA, jsonB, ignorePaths: new[]
+{
+    "Logging.*",           // ignore everything under Logging
+    "ConnectionStrings.*"  // ignore everything under ConnectionStrings
+});
+
+// Only NewSetting and FeatureFlag will appear in the result
+```
+
+### Rich change entries
+
+Changed entries include both the old and new values via the `ConfigChange` record:
+
+```csharp
+foreach (var change in diff.Changed)
+{
+    Console.WriteLine($"{change.Path}: {change.OldValue} -> {change.NewValue}");
+}
+```
+
 ## API
 
 ### `ConfigComparer`
 
 | Method | Description |
 |--------|-------------|
-| `Compare(string jsonA, string jsonB)` | Diff two JSON strings |
-| `CompareFiles(string pathA, string pathB)` | Read files from disk and diff them |
+| `Compare(string jsonA, string jsonB, IEnumerable<string>? ignorePaths = null)` | Diff two JSON strings |
+| `CompareFiles(string pathA, string pathB, IEnumerable<string>? ignorePaths = null)` | Read files from disk and diff them |
+| `Compare(Stream streamA, Stream streamB, IEnumerable<string>? ignorePaths = null)` | Read streams and diff them |
 
 ### `ConfigDiffResult`
 
@@ -74,7 +108,7 @@ var diff = ConfigComparer.CompareFiles("appsettings.json", "appsettings.Producti
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `Key` | `string` | Dot-notation key path |
+| `Path` | `string` | Dot-notation key path |
 | `OldValue` | `string?` | Value in A |
 | `NewValue` | `string?` | Value in B |
 

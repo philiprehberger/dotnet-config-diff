@@ -5,7 +5,7 @@ namespace Philiprehberger.ConfigDiff;
 /// <summary>
 /// Represents a single key that changed between two configurations.
 /// </summary>
-public sealed record ConfigChange(string Key, string? OldValue, string? NewValue);
+public sealed record ConfigChange(string Path, string? OldValue, string? NewValue);
 
 /// <summary>
 /// The full result of comparing two JSON configuration documents.
@@ -25,10 +25,23 @@ public static class ConfigComparer
     /// <summary>
     /// Compares two JSON strings and returns the differences.
     /// </summary>
-    public static ConfigDiffResult Compare(string jsonA, string jsonB)
+    /// <param name="jsonA">The base JSON document.</param>
+    /// <param name="jsonB">The target JSON document.</param>
+    /// <param name="ignorePaths">
+    /// Optional paths to exclude from comparison. Supports exact matches
+    /// (e.g., "Logging.Level") and wildcard prefix matches (e.g., "Logging.*").
+    /// </param>
+    public static ConfigDiffResult Compare(string jsonA, string jsonB, IEnumerable<string>? ignorePaths = null)
     {
         var flatA = Flatten(jsonA);
         var flatB = Flatten(jsonB);
+
+        if (ignorePaths is not null)
+        {
+            var patterns = ignorePaths.ToList();
+            FilterIgnored(flatA, patterns);
+            FilterIgnored(flatB, patterns);
+        }
 
         var added = new List<string>();
         var removed = new List<string>();
@@ -61,11 +74,49 @@ public static class ConfigComparer
     /// <summary>
     /// Reads two JSON files from disk and compares them.
     /// </summary>
-    public static ConfigDiffResult CompareFiles(string pathA, string pathB)
+    public static ConfigDiffResult CompareFiles(string pathA, string pathB, IEnumerable<string>? ignorePaths = null)
     {
         var jsonA = File.ReadAllText(pathA);
         var jsonB = File.ReadAllText(pathB);
-        return Compare(jsonA, jsonB);
+        return Compare(jsonA, jsonB, ignorePaths);
+    }
+
+    /// <summary>
+    /// Reads two JSON streams and compares them.
+    /// </summary>
+    public static ConfigDiffResult Compare(Stream streamA, Stream streamB, IEnumerable<string>? ignorePaths = null)
+    {
+        using var readerA = new StreamReader(streamA);
+        using var readerB = new StreamReader(streamB);
+        var jsonA = readerA.ReadToEnd();
+        var jsonB = readerB.ReadToEnd();
+        return Compare(jsonA, jsonB, ignorePaths);
+    }
+
+    private static void FilterIgnored(Dictionary<string, string?> flat, List<string> patterns)
+    {
+        var keysToRemove = flat.Keys.Where(key => IsIgnored(key, patterns)).ToList();
+        foreach (var key in keysToRemove)
+            flat.Remove(key);
+    }
+
+    private static bool IsIgnored(string key, List<string> patterns)
+    {
+        foreach (var pattern in patterns)
+        {
+            if (pattern.EndsWith(".*"))
+            {
+                var prefix = pattern[..^2];
+                if (key == prefix || key.StartsWith(prefix + ".", StringComparison.Ordinal) || key.StartsWith(prefix + "[", StringComparison.Ordinal))
+                    return true;
+            }
+            else if (key == pattern)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Recursively flattens a JSON document to dot-notation key/value pairs.
