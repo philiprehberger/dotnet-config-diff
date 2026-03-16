@@ -116,6 +116,12 @@ foreach (var change in diff.Changed)
 | `OldValue` | `string?` | Value in A |
 | `NewValue` | `string?` | Value in B |
 
+## Development
+
+```bash
+dotnet build src/Philiprehberger.ConfigDiff.csproj --configuration Release
+```
+
 ## License
 
 MIT
