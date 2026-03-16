@@ -1,5 +1,9 @@
 # Philiprehberger.ConfigDiff
 
+[![CI](https://github.com/philiprehberger/dotnet-config-diff/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-config-diff/actions/workflows/ci.yml)
+[![NuGet](https://img.shields.io/nuget/v/Philiprehberger.ConfigDiff.svg)](https://www.nuget.org/packages/Philiprehberger.ConfigDiff)
+[![License](https://img.shields.io/github/license/philiprehberger/dotnet-config-diff)](LICENSE)
+
 Compare JSON configuration files (`appsettings.json`, etc.) and get a structured diff of added, removed, changed, and unchanged keys.
 
 ## Install
