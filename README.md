@@ -6,7 +6,7 @@
 
 Compare JSON configuration files (`appsettings.json`, etc.) and get a structured diff of added, removed, changed, and unchanged keys.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Philiprehberger.ConfigDiff
