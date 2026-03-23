@@ -7,9 +7,9 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PackageId>Philiprehberger.ConfigDiff</PackageId>
-    <Version>0.2.4</Version>
+    <Version>0.2.5</Version>
     <Authors>Philip Rehberger</Authors>
-    <Description>Compare JSON configuration files and output differences</Description>
+    <Description>Structured diff for JSON configuration files — detect added, removed, changed, and unchanged keys.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/philiprehberger/dotnet-config-diff</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
