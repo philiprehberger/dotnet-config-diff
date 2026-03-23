@@ -1,11 +1,17 @@
 # Changelog
 
-## 0.2.3
+## 0.2.4 (2026-03-22)
+
+- Add dates to changelog entries
+
+## 0.2.3 (2026-03-16)
 
 - Add Development section to README
 - Add GenerateDocumentationFile and RepositoryType to .csproj
 
-## [0.2.0] - 2026-03-13
+## 0.2.2 (2026-03-16)
+
+## 0.2.0 (2026-03-13)
 
 ### Added
 - `ignorePaths` parameter for excluding specific paths from comparison (supports wildcards)
