@@ -7,7 +7,7 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PackageId>Philiprehberger.ConfigDiff</PackageId>
-    <Version>0.2.5</Version>
+    <Version>0.2.6</Version>
     <Authors>Philip Rehberger</Authors>
     <Description>Structured diff for JSON configuration files — detect added, removed, changed, and unchanged keys.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
