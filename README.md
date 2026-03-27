@@ -3,6 +3,7 @@
 [![CI](https://github.com/philiprehberger/dotnet-config-diff/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-config-diff/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.ConfigDiff.svg)](https://www.nuget.org/packages/Philiprehberger.ConfigDiff)
 [![License](https://img.shields.io/github/license/philiprehberger/dotnet-config-diff)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
 
 Structured diff for JSON configuration files — detect added, removed, changed, and unchanged keys.
 
@@ -124,4 +125,4 @@ dotnet build src/Philiprehberger.ConfigDiff.csproj --configuration Release
 
 ## License
 
-MIT
+[MIT](LICENSE)
