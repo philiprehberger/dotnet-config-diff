@@ -145,4 +145,27 @@ public class ConfigComparerTests
         Assert.Single(result.Changed);
         Assert.Equal("Key", result.Changed[0].Path);
     }
+
+    [Fact]
+    public void Compare_IdenticalJson_HasDifferencesFalseAndTotalChangesZero()
+    {
+        var json = """{"Key": "Value"}""";
+
+        var result = ConfigComparer.Compare(json, json);
+
+        Assert.False(result.HasDifferences);
+        Assert.Equal(0, result.TotalChanges);
+    }
+
+    [Fact]
+    public void Compare_MixedChanges_TotalChangesSumsAddedRemovedChanged()
+    {
+        var jsonA = """{"A": "1", "B": "2", "C": "3"}""";
+        var jsonB = """{"A": "1", "B": "x", "D": "4"}""";
+
+        var result = ConfigComparer.Compare(jsonA, jsonB);
+
+        Assert.True(result.HasDifferences);
+        Assert.Equal(result.Added.Count + result.Removed.Count + result.Changed.Count, result.TotalChanges);
+    }
 }

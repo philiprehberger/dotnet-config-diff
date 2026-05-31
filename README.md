@@ -4,6 +4,8 @@
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.ConfigDiff.svg)](https://www.nuget.org/packages/Philiprehberger.ConfigDiff)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dotnet-config-diff)](https://github.com/philiprehberger/dotnet-config-diff/commits/main)
 
+![Philiprehberger.ConfigDiff](https://raw.githubusercontent.com/philiprehberger/dotnet-config-diff/main/package-card.webp)
+
 Structured diff for JSON configuration files — detect added, removed, changed, and unchanged keys.
 
 ## Installation
@@ -107,6 +109,8 @@ foreach (var change in diff.Changed)
 | `Removed` | `IReadOnlyList<string>` | Keys present in A but not in B |
 | `Changed` | `IReadOnlyList<ConfigChange>` | Keys present in both with different values |
 | `Unchanged` | `IReadOnlyList<string>` | Keys with identical values |
+| `TotalChanges` | `int` | Total count of added + removed + changed entries |
+| `HasDifferences` | `bool` | `true` when any difference exists |
 
 ### `ConfigChange`
 

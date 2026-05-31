@@ -15,7 +15,18 @@ public sealed record ConfigDiffResult(
     IReadOnlyList<string> Removed,
     IReadOnlyList<ConfigChange> Changed,
     IReadOnlyList<string> Unchanged
-);
+)
+{
+    /// <summary>
+    /// Gets the total number of differences (added + removed + changed entries).
+    /// </summary>
+    public int TotalChanges => Added.Count + Removed.Count + Changed.Count;
+
+    /// <summary>
+    /// Gets a value indicating whether the two documents differ.
+    /// </summary>
+    public bool HasDifferences => TotalChanges > 0;
+}
 
 /// <summary>
 /// Compares two JSON configuration documents and returns a <see cref="ConfigDiffResult"/>.

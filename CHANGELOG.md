@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (2026-05-30)
+
+- Add `ConfigDiffResult.HasDifferences` convenience property indicating whether any differences exist
+- Add `ConfigDiffResult.TotalChanges` int property returning the total count of added, removed, and changed entries
+- Add card image to README
+
 ## 0.2.8 (2026-03-31)
 
 - Standardize README to 3-badge format with emoji Support section
@@ -30,6 +36,8 @@
 - Add GenerateDocumentationFile and RepositoryType to .csproj
 
 ## 0.2.2 (2026-03-16)
+
+- Internal CI workflow adjustments
 
 ## 0.2.0 (2026-03-13)
 
